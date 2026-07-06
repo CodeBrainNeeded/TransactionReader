@@ -8,7 +8,6 @@
     <string name="received_announcements_toggle">Announce received payments</string>
     <string name="custom_message_label">Message after announcement</string>
     <string name="custom_message_hint">Optional extra message to read after the received amount</string>
-    <string name="allowlist_header">Enabled UPI apps</string>
     <string name="speech_template">Received %1$s rupees</string>
     <string name="summary_text">Reads incoming UPI notifications and announces received amounts.</string>
     <string name="listener_guidance">Enable notification access first, then send a test UPI notification.</string>

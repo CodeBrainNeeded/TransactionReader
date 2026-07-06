@@ -74,48 +74,5 @@
             android:minLines="2"
             android:maxLines="4" />
 
-        <TextView
-            android:id="@+id/allowlistHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/allowlist_header"
-            android:textAppearance="@style/TextAppearance.Material3.TitleLarge" />
-
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/checkBhim"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:useMaterialThemeColors="true"
-            android:text="BHIM" />
-
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/checkGpay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:useMaterialThemeColors="true"
-            android:text="Google Pay" />
-
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/checkPhonePe"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:useMaterialThemeColors="true"
-            android:text="PhonePe" />
-
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/checkPaytm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:useMaterialThemeColors="true"
-            android:text="Paytm" />
-
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/checkCred"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:useMaterialThemeColors="true"
-            android:text="CRED UPI" />
     </LinearLayout>
 </ScrollView>

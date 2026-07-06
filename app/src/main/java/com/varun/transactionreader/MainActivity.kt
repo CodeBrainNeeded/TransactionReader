@@ -8,14 +8,12 @@ import android.os.Bundle
 import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.varun.transactionreader.data.SettingsRepository
-import com.varun.transactionreader.data.SupportedUpiApps
 import com.varun.transactionreader.service.ListenerForegroundService
 import com.varun.transactionreader.tts.TtsManager
 import com.varun.transactionreader.util.NotificationAccessUtils
@@ -55,8 +53,6 @@ class MainActivity : AppCompatActivity() {
                 settingsRepository.setCustomAnnouncementMessage(s?.toString().orEmpty())
             }
         })
-
-        bindAllowlistCheckboxes()
     }
 
     override fun onResume() {
@@ -129,22 +125,6 @@ class MainActivity : AppCompatActivity() {
                 data = Uri.fromParts("package", packageName, null)
             }
         )
-    }
-
-    private fun bindAllowlistCheckboxes() {
-        bindCheckbox(R.id.checkBhim, SupportedUpiApps.BHIM)
-        bindCheckbox(R.id.checkGpay, SupportedUpiApps.GPAY)
-        bindCheckbox(R.id.checkPhonePe, SupportedUpiApps.PHONEPE)
-        bindCheckbox(R.id.checkPaytm, SupportedUpiApps.PAYTM)
-        bindCheckbox(R.id.checkCred, SupportedUpiApps.CRED)
-    }
-
-    private fun bindCheckbox(viewId: Int, appId: String) {
-        val checkbox = findViewById<CheckBox>(viewId)
-        checkbox.isChecked = settingsRepository.isAppEnabled(appId)
-        checkbox.setOnCheckedChangeListener { _, isChecked ->
-            settingsRepository.setAppEnabled(appId, isChecked)
-        }
     }
 
     companion object {

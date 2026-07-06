@@ -7,6 +7,9 @@ object SupportedUpiApps {
     const val GPAY = "gpay"
     const val PHONEPE = "phonepe"
     const val PAYTM = "paytm"
+    const val NAVI = "navi"
+    const val SUPER_MONEY = "super_money"
+    const val FAMPAY = "fampay"
     const val CRED = "cred"
 
     val all: List<SupportedUpiApp> = listOf(
@@ -29,6 +32,21 @@ object SupportedUpiApps {
             id = PAYTM,
             displayName = "Paytm",
             packageNames = setOf("net.one97.paytm")
+        ),
+        SupportedUpiApp(
+            id = NAVI,
+            displayName = "Navi",
+            packageNames = setOf("com.navifinserv.customer", "com.naviapp")
+        ),
+        SupportedUpiApp(
+            id = SUPER_MONEY,
+            displayName = "super.money",
+            packageNames = setOf("com.supermoney.app", "in.supermoney.app")
+        ),
+        SupportedUpiApp(
+            id = FAMPAY,
+            displayName = "FamPay",
+            packageNames = setOf("in.fampay.app", "com.fampay.app")
         ),
         SupportedUpiApp(
             id = CRED,

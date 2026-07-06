@@ -6,17 +6,8 @@ import android.content.SharedPreferences
 class SettingsRepository(context: Context) {
     private val preferences: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
-    fun isAppEnabled(appId: String): Boolean {
-        return preferences.getBoolean(keyForApp(appId), appId == SupportedUpiApps.BHIM)
-    }
-
-    fun setAppEnabled(appId: String, enabled: Boolean) {
-        preferences.edit().putBoolean(keyForApp(appId), enabled).apply()
-    }
-
     fun isPackageEnabled(packageName: String): Boolean {
-        val appId = SupportedUpiApps.idFromPackageName(packageName) ?: return false
-        return isAppEnabled(appId)
+        return SupportedUpiApps.idFromPackageName(packageName) != null
     }
 
     fun isReceivedAnnouncementsEnabled(): Boolean {
@@ -42,8 +33,6 @@ class SettingsRepository(context: Context) {
     fun setPostNotificationsPermissionRequested(requested: Boolean) {
         preferences.edit().putBoolean(KEY_POST_NOTIFICATIONS_REQUESTED, requested).apply()
     }
-
-    private fun keyForApp(appId: String): String = "upi_app_enabled_$appId"
 
     companion object {
         private const val PREFS_NAME = "transaction_reader_prefs"
