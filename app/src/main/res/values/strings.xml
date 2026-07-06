@@ -6,7 +6,6 @@
     <string name="open_notification_settings">Open notification access settings</string>
     <string name="test_tts">Test TTS</string>
     <string name="received_announcements_toggle">Announce received payments</string>
-    <string name="reliability_mode_toggle">Reliability mode</string>
     <string name="custom_message_label">Message after announcement</string>
     <string name="custom_message_hint">Optional extra message to read after the received amount</string>
     <string name="allowlist_header">Enabled UPI apps</string>

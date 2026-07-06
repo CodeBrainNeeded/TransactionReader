@@ -55,13 +55,6 @@
             android:layout_marginTop="12dp"
             android:text="@string/received_announcements_toggle" />
 
-        <Switch
-            android:id="@+id/switchReliabilityMode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/reliability_mode_toggle" />
-
         <TextView
             android:id="@+id/customMessageLabel"
             android:layout_width="match_parent"

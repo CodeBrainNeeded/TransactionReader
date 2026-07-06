@@ -32,6 +32,8 @@ class MainActivity : AppCompatActivity() {
         settingsRepository = SettingsRepository(this)
         listenerStatusText = findViewById(R.id.listenerStatusText)
 
+        ContextCompat.startForegroundService(this, Intent(this, ListenerForegroundService::class.java))
+
         findViewById<com.google.android.material.button.MaterialButton>(R.id.testTtsButton).setOnClickListener {
             TtsManager.speakTestLine(this)
         }
@@ -40,18 +42,6 @@ class MainActivity : AppCompatActivity() {
         receivedAnnouncementsSwitch.isChecked = settingsRepository.isReceivedAnnouncementsEnabled()
         receivedAnnouncementsSwitch.setOnCheckedChangeListener { _, isChecked ->
             settingsRepository.setReceivedAnnouncementsEnabled(isChecked)
-        }
-
-        val reliabilityModeSwitch = findViewById<Switch>(R.id.switchReliabilityMode)
-        reliabilityModeSwitch.isChecked = settingsRepository.isForegroundModeEnabled()
-        reliabilityModeSwitch.setOnCheckedChangeListener { _, isChecked ->
-            val intent = Intent(this, ListenerForegroundService::class.java)
-            if (isChecked) {
-                ContextCompat.startForegroundService(this, intent)
-            } else {
-                stopService(intent)
-            }
-            settingsRepository.setForegroundModeEnabled(isChecked)
         }
 
         val customMessageInput = findViewById<EditText>(R.id.customMessageInput)

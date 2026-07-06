@@ -19,14 +19,6 @@ class SettingsRepository(context: Context) {
         return isAppEnabled(appId)
     }
 
-    fun isForegroundModeEnabled(): Boolean {
-        return preferences.getBoolean(KEY_FOREGROUND_MODE, false)
-    }
-
-    fun setForegroundModeEnabled(enabled: Boolean) {
-        preferences.edit().putBoolean(KEY_FOREGROUND_MODE, enabled).apply()
-    }
-
     fun isReceivedAnnouncementsEnabled(): Boolean {
         return preferences.getBoolean(KEY_RECEIVED_ANNOUNCEMENTS_ENABLED, true)
     }
@@ -55,7 +47,6 @@ class SettingsRepository(context: Context) {
 
     companion object {
         private const val PREFS_NAME = "transaction_reader_prefs"
-        private const val KEY_FOREGROUND_MODE = "foreground_mode_enabled"
         private const val KEY_RECEIVED_ANNOUNCEMENTS_ENABLED = "received_announcements_enabled"
         private const val KEY_CUSTOM_ANNOUNCEMENT_MESSAGE = "custom_announcement_message"
         private const val KEY_POST_NOTIFICATIONS_REQUESTED = "post_notifications_requested"
