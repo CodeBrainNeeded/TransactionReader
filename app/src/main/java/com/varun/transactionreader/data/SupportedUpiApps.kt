@@ -1,0 +1,45 @@
+package com.varun.transactionreader.data
+
+data class SupportedUpiApp(val id: String, val displayName: String, val packageNames: Set<String>)
+
+object SupportedUpiApps {
+    const val BHIM = "bhim"
+    const val GPAY = "gpay"
+    const val PHONEPE = "phonepe"
+    const val PAYTM = "paytm"
+    const val CRED = "cred"
+
+    val all: List<SupportedUpiApp> = listOf(
+        SupportedUpiApp(
+            id = BHIM,
+            displayName = "BHIM",
+            packageNames = setOf("in.org.npci.upiapp", "com.upi.bhim")
+        ),
+        SupportedUpiApp(
+            id = GPAY,
+            displayName = "Google Pay",
+            packageNames = setOf("com.google.android.apps.nbu.paisa.user")
+        ),
+        SupportedUpiApp(
+            id = PHONEPE,
+            displayName = "PhonePe",
+            packageNames = setOf("com.phonepe.app")
+        ),
+        SupportedUpiApp(
+            id = PAYTM,
+            displayName = "Paytm",
+            packageNames = setOf("net.one97.paytm")
+        ),
+        SupportedUpiApp(
+            id = CRED,
+            displayName = "CRED UPI",
+            packageNames = setOf("com.dreamplug.androidapp")
+        )
+    )
+
+    private val packageToAppId: Map<String, String> = all
+        .flatMap { app -> app.packageNames.map { pkg -> pkg to app.id } }
+        .toMap()
+
+    fun idFromPackageName(packageName: String): String? = packageToAppId[packageName]
+}
