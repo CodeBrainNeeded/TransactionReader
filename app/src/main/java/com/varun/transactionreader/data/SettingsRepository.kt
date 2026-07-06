@@ -19,7 +19,7 @@ class SettingsRepository(context: Context) {
     }
 
     fun getCustomAnnouncementMessage(): String {
-        return preferences.getString(KEY_CUSTOM_ANNOUNCEMENT_MESSAGE, "") ?: ""
+        return preferences.getString(KEY_CUSTOM_ANNOUNCEMENT_MESSAGE, "Thank you!") ?: "Thank you!"
     }
 
     fun setCustomAnnouncementMessage(message: String) {

@@ -9,18 +9,15 @@ import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
-import android.widget.Switch
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.google.android.material.materialswitch.MaterialSwitch
 import com.varun.transactionreader.data.SettingsRepository
 import com.varun.transactionreader.service.ListenerForegroundService
-import com.varun.transactionreader.tts.TtsManager
 import com.varun.transactionreader.util.NotificationAccessUtils
 
 class MainActivity : AppCompatActivity() {
     private lateinit var settingsRepository: SettingsRepository
-    private lateinit var listenerStatusText: TextView
     private var skipNextPostNotificationsPrompt = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,15 +25,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         settingsRepository = SettingsRepository(this)
-        listenerStatusText = findViewById(R.id.listenerStatusText)
 
         ContextCompat.startForegroundService(this, Intent(this, ListenerForegroundService::class.java))
 
-        findViewById<com.google.android.material.button.MaterialButton>(R.id.testTtsButton).setOnClickListener {
-            TtsManager.speakTestLine(this)
-        }
-
-        val receivedAnnouncementsSwitch = findViewById<Switch>(R.id.switchReceivedAnnouncements)
+        val receivedAnnouncementsSwitch = findViewById<MaterialSwitch>(R.id.switchReceivedAnnouncements)
         receivedAnnouncementsSwitch.isChecked = settingsRepository.isReceivedAnnouncementsEnabled()
         receivedAnnouncementsSwitch.setOnCheckedChangeListener { _, isChecked ->
             settingsRepository.setReceivedAnnouncementsEnabled(isChecked)
@@ -57,16 +49,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        updateListenerStatus()
         if (maybeRequestPostNotificationsPermission()) {
             return
         }
         maybeOpenNotificationAccessSettings()
-    }
-
-    private fun updateListenerStatus() {
-        val enabled = NotificationAccessUtils.isNotificationAccessEnabled(this)
-        listenerStatusText.setText(if (enabled) R.string.status_enabled else R.string.status_disabled)
     }
 
     private fun maybeOpenNotificationAccessSettings() {
