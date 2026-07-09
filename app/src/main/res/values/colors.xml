@@ -1,7 +1,7 @@
 <resources>
-    <color name="seed">#114B5F</color>
+    <color name="seed">#FF9800</color>
     <color name="surface">#F3F7F6</color>
     <color name="on_surface">#101D21</color>
-    <color name="primary">#146C8A</color>
+    <color name="primary">#FF9800</color>
     <color name="on_primary">#FFFFFF</color>
 </resources>
