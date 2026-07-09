@@ -5,10 +5,21 @@ TransactionReader is an Android app that listens for UPI payment notifications a
 ## Current Scope
 
 - Runs a notification listener in the background.
-- Filters notifications from supported UPI apps (BHIM, Google Pay, PhonePe, Paytm, CRED).
-- Parses incoming-payment notifications and extracts rupee amount.
+- Starts a foreground reliability service automatically and restarts it after boot.
+- Filters notifications from supported UPI apps automatically: BHIM, Google Pay, PhonePe, Paytm, Navi, super.money, FamPay, and CRED.
+- Parses incoming-payment notifications and extracts the rupee amount.
 - Speaks a confirmation in the format: "Received X rupees".
-- Provides a simple setup screen for notification access, test TTS, and per-app allowlist.
+- Optionally speaks a second custom message after the amount announcement.
+- Provides a minimal setup screen with:
+	- a toggle to enable or disable received-payment announcements
+	- a text box for the optional post-announcement message
+
+## Current UI Behavior
+
+- The optional post-announcement message defaults to `Thank you!`.
+- The custom message persists across app restarts and device restarts.
+- Supported UPI apps are no longer selected in the UI; matching is automatic for all supported packages.
+- Reliability mode is always on; there is no longer a separate toggle for it.
 
 ## Install on Phone (APK Sideload)
 
@@ -22,14 +33,15 @@ TransactionReader is an Android app that listens for UPI payment notifications a
 ## First-Time Setup on Device
 
 1. Open TransactionReader.
-2. Tap "Open notification access settings".
-3. Enable TransactionReader in notification listener access.
-4. Return to app and use "Test TTS".
-5. Enable the UPI apps you use in the allowlist.
-6. Optionally enable reliability mode if your device aggressively kills background apps.
+2. On Android 13 and above, allow the app's notification permission if prompted.
+3. Enable TransactionReader in Android's notification listener access screen when it opens.
+4. Return to the app.
+5. Leave `Announce received payments` enabled if you want announcements.
+6. Edit the optional message field if you want a custom phrase spoken after each received-payment announcement.
 
 ## Notes and Limitations
 
 - Android does not allow auto-granting notification listener access; this is always manual.
-- Reliability differs by OEM battery policy and Android version.
+- Reliability still depends somewhat on OEM battery policy and Android version, even with the foreground service always running.
+- On Android 13 and above, notification posting permission may also be required for the foreground-service notification.
 - Processing is local on-device in the current implementation.
