@@ -21,6 +21,31 @@
             android:textSize="20sp"
             android:text="@string/received_announcements_toggle" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/notificationSendPermissionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/notification_send_permission_button"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/notificationReadPermissionExplanation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/notification_read_permission_explanation"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:visibility="gone" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/notificationReadPermissionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/notification_read_permission_button"
+            android:visibility="gone" />
+
         <TextView
             android:id="@+id/customMessageHeading"
             android:layout_width="match_parent"

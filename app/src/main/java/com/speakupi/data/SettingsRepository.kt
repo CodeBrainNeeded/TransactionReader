@@ -1,4 +1,4 @@
-package com.varun.transactionreader.data
+package com.speakupi.data
 
 import android.content.Context
 import android.content.SharedPreferences

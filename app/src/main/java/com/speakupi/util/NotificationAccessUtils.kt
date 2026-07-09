@@ -1,4 +1,4 @@
-package com.varun.transactionreader.util
+package com.speakupi.util
 
 import android.content.Context
 import android.provider.Settings

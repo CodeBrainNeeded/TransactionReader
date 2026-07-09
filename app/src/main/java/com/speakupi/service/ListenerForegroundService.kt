@@ -1,4 +1,4 @@
-package com.varun.transactionreader.service
+package com.speakupi.service
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -8,7 +8,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
-import com.varun.transactionreader.R
+import com.speakupi.R
 
 class ListenerForegroundService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {

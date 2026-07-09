@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "TransactionReader"
+rootProject.name = "SpeakUPI"
 include(":app")

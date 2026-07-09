@@ -1,4 +1,4 @@
-package com.varun.transactionreader
+package com.speakupi
 
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -8,25 +8,40 @@ import android.os.Bundle
 import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.materialswitch.MaterialSwitch
-import com.varun.transactionreader.data.SettingsRepository
-import com.varun.transactionreader.service.ListenerForegroundService
-import com.varun.transactionreader.util.NotificationAccessUtils
+import com.speakupi.data.SettingsRepository
+import com.speakupi.service.ListenerForegroundService
+import com.speakupi.util.NotificationAccessUtils
 
 class MainActivity : AppCompatActivity() {
     private lateinit var settingsRepository: SettingsRepository
-    private var skipNextPostNotificationsPrompt = false
+    private lateinit var notificationSendPermissionButton: MaterialButton
+    private lateinit var notificationReadPermissionExplanation: TextView
+    private lateinit var notificationReadPermissionButton: MaterialButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         settingsRepository = SettingsRepository(this)
-
         ContextCompat.startForegroundService(this, Intent(this, ListenerForegroundService::class.java))
+
+        notificationSendPermissionButton = findViewById(R.id.notificationSendPermissionButton)
+    notificationReadPermissionExplanation = findViewById(R.id.notificationReadPermissionExplanation)
+        notificationReadPermissionButton = findViewById(R.id.notificationReadPermissionButton)
+
+        notificationSendPermissionButton.setOnClickListener {
+            openAppNotificationSettings()
+        }
+        notificationReadPermissionButton.setOnClickListener {
+            openNotificationAccessSettings()
+        }
 
         val receivedAnnouncementsSwitch = findViewById<MaterialSwitch>(R.id.switchReceivedAnnouncements)
         receivedAnnouncementsSwitch.isChecked = settingsRepository.isReceivedAnnouncementsEnabled()
@@ -49,23 +64,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (maybeRequestPostNotificationsPermission()) {
-            return
-        }
-        maybeOpenNotificationAccessSettings()
+        maybeRequestPostNotificationsPermission()
+        updatePermissionButtons()
     }
 
-    private fun maybeOpenNotificationAccessSettings() {
-        if (NotificationAccessUtils.isNotificationAccessEnabled(this)) {
-            return
-        }
-
-        startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
-    }
-
-    private fun maybeRequestPostNotificationsPermission(): Boolean {
+    private fun maybeRequestPostNotificationsPermission() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-            return false
+            return
         }
 
         val permissionState = ContextCompat.checkSelfPermission(
@@ -73,27 +78,50 @@ class MainActivity : AppCompatActivity() {
             android.Manifest.permission.POST_NOTIFICATIONS
         )
         if (permissionState == PackageManager.PERMISSION_GRANTED) {
+            return
+        }
+
+        if (settingsRepository.hasRequestedPostNotificationsPermission()) {
+            return
+        }
+
+        settingsRepository.setPostNotificationsPermissionRequested(true)
+        requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), REQUEST_POST_NOTIFICATIONS)
+    }
+
+    private fun openNotificationAccessSettings() {
+        startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
+    }
+
+    private fun updatePermissionButtons() {
+        notificationSendPermissionButton.visibility = if (needsNotificationSendPermission()) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+
+        val notificationReadAccessMissing = !NotificationAccessUtils.isNotificationAccessEnabled(this)
+        notificationReadPermissionExplanation.visibility = if (notificationReadAccessMissing) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+        notificationReadPermissionButton.visibility = if (notificationReadAccessMissing) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+    }
+
+    private fun needsNotificationSendPermission(): Boolean {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
             return false
         }
 
-        val hasRequestedBefore = settingsRepository.hasRequestedPostNotificationsPermission()
-        val canShowRuntimePrompt = !hasRequestedBefore ||
-            shouldShowRequestPermissionRationale(android.Manifest.permission.POST_NOTIFICATIONS)
-
-        if (!canShowRuntimePrompt) {
-            openAppNotificationSettings()
-            return true
-        }
-
-        if (skipNextPostNotificationsPrompt) {
-            skipNextPostNotificationsPrompt = false
-            return true
-        }
-
-        skipNextPostNotificationsPrompt = true
-        settingsRepository.setPostNotificationsPermissionRequested(true)
-        requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), REQUEST_POST_NOTIFICATIONS)
-        return true
+        return ContextCompat.checkSelfPermission(
+            this,
+            android.Manifest.permission.POST_NOTIFICATIONS
+        ) != PackageManager.PERMISSION_GRANTED
     }
 
     private fun openAppNotificationSettings() {

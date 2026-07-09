@@ -1,4 +1,4 @@
-package com.varun.transactionreader.receiver
+package com.speakupi.receiver
 
 import android.content.BroadcastReceiver
 import android.content.ComponentName
@@ -7,8 +7,8 @@ import android.content.Intent
 import android.os.Build
 import android.service.notification.NotificationListenerService
 import androidx.core.content.ContextCompat
-import com.varun.transactionreader.service.ListenerForegroundService
-import com.varun.transactionreader.service.UpiNotificationListenerService
+import com.speakupi.service.ListenerForegroundService
+import com.speakupi.service.UpiNotificationListenerService
 
 class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent?) {

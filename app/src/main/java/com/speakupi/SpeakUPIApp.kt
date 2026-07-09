@@ -1,9 +1,9 @@
-package com.varun.transactionreader
+package com.speakupi
 
 import android.app.Application
-import com.varun.transactionreader.tts.TtsManager
+import com.speakupi.tts.TtsManager
 
-class TransactionReaderApp : Application() {
+class SpeakUPIApp : Application() {
     override fun onCreate() {
         super.onCreate()
         TtsManager.initialize(this)

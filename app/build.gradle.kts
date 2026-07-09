@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.varun.transactionreader"
+    namespace = "com.speakupi"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.varun.transactionreader"
+        applicationId = "com.speakupi"
         minSdk = 26
         targetSdk = 35
         versionCode = 1

@@ -1,10 +1,10 @@
-package com.varun.transactionreader.tts
+package com.speakupi.tts
 
 import android.content.Context
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import android.util.Log
-import com.varun.transactionreader.R
+import com.speakupi.R
 import java.util.Locale
 import java.util.UUID
 
@@ -58,7 +58,7 @@ object TtsManager {
             return
         }
         val utteranceId = UUID.randomUUID().toString()
-        tts?.speak("Transaction Reader is ready", TextToSpeech.QUEUE_FLUSH, null, utteranceId)
+        tts?.speak("Speak UPI is ready", TextToSpeech.QUEUE_FLUSH, null, utteranceId)
     }
 
     fun shutdown() {

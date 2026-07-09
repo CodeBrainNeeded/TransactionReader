@@ -1,4 +1,4 @@
-package com.varun.transactionreader.parser
+package com.speakupi.parser
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull

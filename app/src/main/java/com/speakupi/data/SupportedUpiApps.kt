@@ -1,4 +1,4 @@
-package com.varun.transactionreader.data
+package com.speakupi.data
 
 data class SupportedUpiApp(val id: String, val displayName: String, val packageNames: Set<String>)
 

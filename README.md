@@ -1,6 +1,6 @@
-# TransactionReader
+# SpeakUPI
 
-TransactionReader is an Android app that listens for UPI payment notifications and announces incoming amounts with text-to-speech.
+SpeakUPI is an Android app that listens for UPI payment notifications and announces incoming amounts with text-to-speech.
 
 ## Current Scope
 
@@ -32,9 +32,9 @@ TransactionReader is an Android app that listens for UPI payment notifications a
 
 ## First-Time Setup on Device
 
-1. Open TransactionReader.
+1. Open SpeakUPI.
 2. On Android 13 and above, allow the app's notification permission if prompted.
-3. Enable TransactionReader in Android's notification listener access screen when it opens.
+3. Enable SpeakUPI in Android's notification listener access screen when it opens.
 4. Return to the app.
 5. Leave `Announce received payments` enabled if you want announcements.
 6. Edit the optional message field if you want a custom phrase spoken after each received-payment announcement.

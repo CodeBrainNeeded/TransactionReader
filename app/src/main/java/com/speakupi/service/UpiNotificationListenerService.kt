@@ -1,11 +1,11 @@
-package com.varun.transactionreader.service
+package com.speakupi.service
 
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
-import com.varun.transactionreader.data.SettingsRepository
-import com.varun.transactionreader.parser.NotificationParser
-import com.varun.transactionreader.tts.TtsManager
+import com.speakupi.data.SettingsRepository
+import com.speakupi.parser.NotificationParser
+import com.speakupi.tts.TtsManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

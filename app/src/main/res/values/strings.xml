@@ -1,11 +1,14 @@
 <resources>
-    <string name="app_name">TransactionReader</string>
-    <string name="listener_label">TransactionReader Notification Listener</string>
+    <string name="app_name">SpeakUPI</string>
+    <string name="listener_label">SpeakUPI Notification Listener</string>
     <string name="received_announcements_toggle">Announce received payments</string>
+    <string name="notification_send_permission_button">Notification-sending permission is required. Tap to open settings.</string>
+    <string name="notification_read_permission_explanation">SpeakUPI needs notification-reading access to detect UPI payment messages. Tap below, then enable SpeakUPI on the next screen.</string>
+    <string name="notification_read_permission_button">Notification-reading permission is required. Tap to open settings.</string>
     <string name="custom_message_heading">Optional message after each announcement</string>
     <string name="custom_message_hint">Optional extra message to read after the received amount</string>
     <string name="speech_template">Received %1$s rupees</string>
-    <string name="foreground_channel_name">TransactionReader Reliability</string>
-    <string name="foreground_notification_title">TransactionReader reliability mode</string>
+    <string name="foreground_channel_name">SpeakUPI Reliability</string>
+    <string name="foreground_notification_title">SpeakUPI reliability mode</string>
     <string name="foreground_notification_text">Keeping services active for faster announcement reliability.</string>
 </resources>
