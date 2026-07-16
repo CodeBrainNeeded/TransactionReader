@@ -5,6 +5,9 @@
     <string name="notification_send_permission_button">Notification-sending permission is required. Tap to open settings.</string>
     <string name="notification_read_permission_explanation">SpeakUPI needs notification-reading access to detect UPI payment messages. Tap below, then enable SpeakUPI on the next screen.</string>
     <string name="notification_read_permission_button">Notification-reading permission is required. Tap to open settings.</string>
+    <string name="battery_usage_explanation">SpeakUPI may be stopped in the background if battery usage is restricted. Tap below and set battery usage to Unrestricted for better reliability with the screen off.</string>
+    <string name="battery_usage_button">Open battery usage settings</string>
+    <string name="battery_guide_open_settings">Open settings</string>
     <string name="custom_message_heading">Optional message after each announcement</string>
     <string name="custom_message_hint">Optional extra message to read after the received amount</string>
     <string name="speech_template">Received %1$s rupees</string>

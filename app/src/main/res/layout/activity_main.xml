@@ -47,6 +47,23 @@
             android:visibility="gone" />
 
         <TextView
+            android:id="@+id/batteryUsageExplanation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/battery_usage_explanation"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:visibility="gone" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/batteryUsageButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/battery_usage_button"
+            android:visibility="gone" />
+
+        <TextView
             android:id="@+id/customMessageHeading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

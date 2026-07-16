@@ -39,4 +39,62 @@ class NotificationParserTest {
 
         assertNull(parsed)
     }
+
+    @Test
+    fun parse_shouldExtractAmount_forGPayPaidToYouStyleMessage() {
+        val parsed = NotificationParser.parse(
+            sourcePackage = "com.google.android.apps.nbu.paisa.user",
+            title = "UPI payment",
+            body = "Rahul paid ₹350 to you via UPI"
+        )
+
+        assertNotNull(parsed)
+        assertEquals("350", parsed?.amount?.toPlainString())
+    }
+
+    @Test
+    fun parse_shouldExtractAmount_forPhonePePaymentReceivedStyleMessage() {
+        val parsed = NotificationParser.parse(
+            sourcePackage = "com.phonepe.app",
+            title = "Payment update",
+            body = "Payment received: INR 850 from Priya"
+        )
+
+        assertNotNull(parsed)
+        assertEquals("850", parsed?.amount?.toPlainString())
+    }
+
+    @Test
+    fun parse_shouldRejectOutgoingPaidStyleMessage() {
+        val parsed = NotificationParser.parse(
+            sourcePackage = "com.google.android.apps.nbu.paisa.user",
+            title = "UPI payment",
+            body = "You paid ₹350 to Rahul"
+        )
+
+        assertNull(parsed)
+    }
+
+    @Test
+    fun parse_shouldExtractAmount_forSentToYouStyleMessage() {
+        val parsed = NotificationParser.parse(
+            sourcePackage = "com.phonepe.app",
+            title = "UPI update",
+            body = "Amit sent INR 500 to you"
+        )
+
+        assertNotNull(parsed)
+        assertEquals("500", parsed?.amount?.toPlainString())
+    }
+
+    @Test
+    fun parse_shouldRejectOutgoingSentStyleMessage() {
+        val parsed = NotificationParser.parse(
+            sourcePackage = "com.phonepe.app",
+            title = "UPI update",
+            body = "You sent INR 500 to Amit"
+        )
+
+        assertNull(parsed)
+    }
 }
