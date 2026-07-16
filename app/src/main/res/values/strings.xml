@@ -3,7 +3,7 @@
     <string name="listener_label">SpeakUPI Notification Listener</string>
     <string name="received_announcements_toggle">Announce received payments</string>
     <string name="notification_send_permission_button">Notification-sending permission is required. Tap to open settings.</string>
-    <string name="notification_read_permission_explanation">To work, SpeakUPI needs notification-reading permission. To grant it, tap the button below, find and select \"SpeakUPI\" on the next screen, then select \"Allow notification access\".</string>
+    <string name="notification_read_permission_explanation">To work, SpeakUPI needs notification-reading permissions. To grant it, tap the button below, find and select \"SpeakUPI\" on the next screen, then select \"Allow notification access\".</string>
     <string name="notification_read_permission_button">Notification-reading permission is required. Tap to open settings.</string>
     <string name="battery_usage_explanation">SpeakUPI may be stopped in the background if battery usage is restricted. Tap below and set battery usage to Unrestricted for better reliability with the screen off.</string>
     <string name="battery_usage_button">Open battery usage settings</string>

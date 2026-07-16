@@ -12,17 +12,9 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <com.google.android.material.materialswitch.MaterialSwitch
-            android:id="@+id/switchReceivedAnnouncements"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="56dp"
-            app:useMaterialThemeColors="true"
-            android:textSize="20sp"
-            android:text="@string/received_announcements_toggle" />
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/notificationSendPermissionButton"
+            style="@style/Widget.SpeakUPI.RequiredActionButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -34,17 +26,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:background="@drawable/required_action_hint_bg"
+            android:padding="12dp"
             android:text="@string/notification_read_permission_explanation"
-            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            android:textColor="@color/required_action_hint_text"
             android:visibility="gone" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/notificationReadPermissionButton"
+            style="@style/Widget.SpeakUPI.RequiredActionButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/notification_read_permission_button"
             android:visibility="gone" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/switchReceivedAnnouncements"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:minHeight="56dp"
+            android:text="@string/received_announcements_toggle"
+            android:textSize="20sp"
+            app:useMaterialThemeColors="true" />
 
         <TextView
             android:id="@+id/batteryUsageExplanation"
