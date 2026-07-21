@@ -10,6 +10,8 @@
     <string name="battery_guide_open_settings">Open settings</string>
     <string name="custom_message_heading">Optional message after each announcement</string>
     <string name="custom_message_hint">Optional extra message to read after the received amount</string>
+    <string name="custom_message_save_button">Save message</string>
+    <string name="custom_message_saved">Message saved</string>
     <string name="speech_template">Received %1$s rupees</string>
     <string name="foreground_channel_name">SpeakUPI Reliability</string>
     <string name="foreground_notification_title">SpeakUPI reliability mode</string>

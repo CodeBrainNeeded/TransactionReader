@@ -9,11 +9,10 @@ import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
 import android.provider.Settings
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.material.button.MaterialButton
@@ -62,16 +61,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         val customMessageInput = findViewById<EditText>(R.id.customMessageInput)
+        val customMessageSaveButton = findViewById<MaterialButton>(R.id.customMessageSaveButton)
         customMessageInput.setText(settingsRepository.getCustomAnnouncementMessage())
-        customMessageInput.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
-
-            override fun afterTextChanged(s: Editable?) {
-                settingsRepository.setCustomAnnouncementMessage(s?.toString().orEmpty())
-            }
-        })
+        customMessageSaveButton.setOnClickListener {
+            settingsRepository.setCustomAnnouncementMessage(customMessageInput.text?.toString().orEmpty())
+            Toast.makeText(this, R.string.custom_message_saved, Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onResume() {
