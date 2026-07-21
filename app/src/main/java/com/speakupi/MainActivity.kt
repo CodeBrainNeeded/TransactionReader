@@ -21,6 +21,7 @@ import com.google.android.material.materialswitch.MaterialSwitch
 import com.speakupi.data.SettingsRepository
 import com.speakupi.service.ListenerForegroundService
 import com.speakupi.util.NotificationAccessUtils
+import com.speakupi.util.UiTextTranslator
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
@@ -30,6 +31,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var notificationReadPermissionButton: MaterialButton
     private lateinit var batteryUsageExplanation: TextView
     private lateinit var batteryUsageButton: MaterialButton
+    private lateinit var receivedAnnouncementsSwitch: MaterialSwitch
+    private lateinit var customMessageHeading: TextView
+    private lateinit var customMessageInput: EditText
+    private lateinit var customMessageSaveButton: MaterialButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,19 +59,24 @@ class MainActivity : AppCompatActivity() {
             showBatteryOptimizationGuideDialog()
         }
 
-        val receivedAnnouncementsSwitch = findViewById<MaterialSwitch>(R.id.switchReceivedAnnouncements)
+        receivedAnnouncementsSwitch = findViewById(R.id.switchReceivedAnnouncements)
         receivedAnnouncementsSwitch.isChecked = settingsRepository.isReceivedAnnouncementsEnabled()
         receivedAnnouncementsSwitch.setOnCheckedChangeListener { _, isChecked ->
             settingsRepository.setReceivedAnnouncementsEnabled(isChecked)
         }
 
-        val customMessageInput = findViewById<EditText>(R.id.customMessageInput)
-        val customMessageSaveButton = findViewById<MaterialButton>(R.id.customMessageSaveButton)
+        customMessageHeading = findViewById(R.id.customMessageHeading)
+        customMessageInput = findViewById(R.id.customMessageInput)
+        customMessageSaveButton = findViewById(R.id.customMessageSaveButton)
         customMessageInput.setText(settingsRepository.getCustomAnnouncementMessage())
         customMessageSaveButton.setOnClickListener {
             settingsRepository.setCustomAnnouncementMessage(customMessageInput.text?.toString().orEmpty())
-            Toast.makeText(this, R.string.custom_message_saved, Toast.LENGTH_SHORT).show()
+            UiTextTranslator.translate(this, getString(R.string.custom_message_saved)) { translated ->
+                Toast.makeText(this, translated, Toast.LENGTH_SHORT).show()
+            }
         }
+
+        applyTranslatedUiText()
     }
 
     override fun onResume() {
@@ -184,15 +194,44 @@ class MainActivity : AppCompatActivity() {
 
     private fun showBatteryOptimizationGuideDialog() {
         val guide = getBatteryGuide()
+        val openSettingsLabel = getString(R.string.battery_guide_open_settings)
 
-        MaterialAlertDialogBuilder(this)
-            .setTitle(guide.title)
-            .setMessage(guide.instructions)
-            .setPositiveButton(R.string.battery_guide_open_settings) { _, _ ->
-                openBestAvailableBatterySettings(guide.settingsIntents)
-            }
-            .setNegativeButton(android.R.string.cancel, null)
-            .show()
+        UiTextTranslator.translateList(this, listOf(guide.title, guide.instructions, openSettingsLabel)) { translated ->
+            MaterialAlertDialogBuilder(this)
+                .setTitle(translated[0])
+                .setMessage(translated[1])
+                .setPositiveButton(translated[2]) { _, _ ->
+                    openBestAvailableBatterySettings(guide.settingsIntents)
+                }
+                .setNegativeButton(android.R.string.cancel, null)
+                .show()
+        }
+    }
+
+    private fun applyTranslatedUiText() {
+        val sourceTexts = listOf(
+            getString(R.string.received_announcements_toggle),
+            getString(R.string.notification_send_permission_button),
+            getString(R.string.notification_read_permission_explanation),
+            getString(R.string.notification_read_permission_button),
+            getString(R.string.battery_usage_explanation),
+            getString(R.string.battery_usage_button),
+            getString(R.string.custom_message_heading),
+            getString(R.string.custom_message_hint),
+            getString(R.string.custom_message_save_button)
+        )
+
+        UiTextTranslator.translateList(this, sourceTexts) { translated ->
+            receivedAnnouncementsSwitch.text = translated[0]
+            notificationSendPermissionButton.text = translated[1]
+            notificationReadPermissionExplanation.text = translated[2]
+            notificationReadPermissionButton.text = translated[3]
+            batteryUsageExplanation.text = translated[4]
+            batteryUsageButton.text = translated[5]
+            customMessageHeading.text = translated[6]
+            customMessageInput.hint = translated[7]
+            customMessageSaveButton.text = translated[8]
+        }
     }
 
     private fun openBestAvailableBatterySettings(candidates: List<Intent>) {
