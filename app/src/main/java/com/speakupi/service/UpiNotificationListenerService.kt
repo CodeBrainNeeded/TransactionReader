@@ -1,8 +1,10 @@
 package com.speakupi.service
 
+import android.content.Intent
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
+import androidx.core.content.ContextCompat
 import com.speakupi.data.SettingsRepository
 import com.speakupi.parser.NotificationParser
 import com.speakupi.tts.TtsManager
@@ -26,6 +28,10 @@ class UpiNotificationListenerService : NotificationListenerService() {
     override fun onListenerConnected() {
         super.onListenerConnected()
         TtsManager.initialize(this)
+        if (!hasRequestedReliabilityServiceStart) {
+            ContextCompat.startForegroundService(this, Intent(this, ListenerForegroundService::class.java))
+            hasRequestedReliabilityServiceStart = true
+        }
         Log.i(TAG, "Notification listener connected")
     }
 
@@ -95,6 +101,8 @@ class UpiNotificationListenerService : NotificationListenerService() {
     }
 
     companion object {
+        @Volatile
+        private var hasRequestedReliabilityServiceStart: Boolean = false
         private const val TAG = "UpiNotifListener"
         private const val DEDUP_TTL_MS = 30_000L
         private const val MAX_DEDUP_ENTRIES = 256
